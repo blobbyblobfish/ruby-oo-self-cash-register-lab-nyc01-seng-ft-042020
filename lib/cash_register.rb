@@ -6,6 +6,7 @@ class CashRegister
     def initialize (employee_discount = 0)
         @total = 0
         @employee_discount = employee_discount
+        @items = []
     end
 
     def discount 
@@ -16,6 +17,8 @@ class CashRegister
         self.total += price * quantity
         @title = title
         @quantity = quantity
+        quantity.times {@items << title}
+        @last_transaction = price * quantity
     end
 
     def apply_discount
@@ -27,16 +30,11 @@ class CashRegister
     end
 
     def items
-        purchased_items = []
-        index = 0
-        while index < @quantity
-        purchased_items << @title
-        index += 1
-        end
-        purchased_items
+        @items
     end
 
     def void_last_transaction
+        @total = @total - @last_transaction
     end
 end
 
